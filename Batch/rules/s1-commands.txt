@@ -1,0 +1,23 @@
+table_clear tbl_determine_task
+table_clear tbl_do_telemetry_level_0
+table_clear tbl_forward
+table_clear tbl_ttl_rules
+
+table_add tbl_do_telemetry_level_0 write_task_1_value 1 => 6
+table_add tbl_do_telemetry_level_0 write_task_2_value 2 => 0
+table_add tbl_do_telemetry_level_0 write_task_3_value 3 => 0
+
+table_add tbl_forward forward 10.0.0.2 => 3
+table_add tbl_forward forward 10.0.0.1 => 1
+table_add tbl_forward forward 10.0.0.0 => 2
+
+
+table_add tbl_ttl_rules get_approximation 1 => 100000
+table_add tbl_ttl_rules get_approximation 2 => 50000
+table_add tbl_ttl_rules get_approximation 3 => 33333
+table_add tbl_ttl_rules get_approximation 4 => 25000
+table_add tbl_ttl_rules get_approximation 5 => 20000
+table_add tbl_ttl_rules get_approximation 6 => 16666
+table_add tbl_ttl_rules get_approximation 7 => 14285
+table_add tbl_ttl_rules get_approximation 8 => 12500
+table_add tbl_ttl_rules get_approximation 9 => 11111
