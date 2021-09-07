@@ -1,14 +1,10 @@
 # Topology:
 
-------
-
-​		Briefly, we constructed a linear network topology consisting of  switches and  hosts. For 3 switches, the topology is shown in this figure:
+​	Briefly, we constructed a linear network topology consisting of  switches and  hosts. For 3 switches, the topology is shown in this figure:
 
 ![topology1](.\topology1.png)
 
 # EVNIRONMENT:
-
-------
 
 - p4-utils: [p4-utils](https://github.com/nsg-ethz/p4-utils)
 
