@@ -4,7 +4,7 @@
 
 ​		Briefly, we constructed a linear network topology consisting of  switches and  hosts. For 3 switches, the topology is shown in this figure:
 
-![topology1](D:\OneDrive\PINT工作相关\P4_Program\topology1.png)
+![topology1](.\topology1.png)
 
 # EVNIRONMENT:
 
