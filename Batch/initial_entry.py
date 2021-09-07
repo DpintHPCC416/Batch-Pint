@@ -1,20 +1,27 @@
 import sys
 def generate_rules(length):
     for i in range(1,length+1):
-        fw = open("rules/"+i+"-commands.txt","w")
+        fw = open("rules/s"+str(i-1)+"-commands.txt","w")
         fw.write("table_clear tbl_determine_task\n")
         fw.write("table_clear tbl_do_telemetry_level_0\n")
         fw.write("table_clear tbl_forward\n")
         fw.write("table_clear tbl_ttl_rules\n")
         fw.write("\n")
         for j in range(1,4):
-            fw.write("able_add tbl_do_telemetry_level_0 write_task_"+j+"_value "+j+' => '+j+'\n')
+            fw.write("table_add tbl_do_telemetry_level_0 write_task_"+str(i)+"_value "+str(j)+' => '+str(j)+'\n')
         fw.write("\n")
         for j in range(1,length+1):
-            if j<=i:
-                fw.write("table_add tbl_forward forward 10.0.0."+(int)(j-1)+" => 1")
+            smaller = False
+            if j ==i:
+                fw.write("table_add tbl_forward forward 10.0.0."+(str)(j-1)+" => 1\n")
+            elif j < i  :
+                smaller = True
+                fw.write("table_add tbl_forward forward 10.0.0."+(str)(j-1)+" => 2\n")
             else:
-                fw.write("table_add tbl_forward forward 10.0.0."+(int)(j-1)+" => 2")
+                if smaller:
+                    fw.write("table_add tbl_forward forward 10.0.0."+(str)(j-1)+" => 3\n")
+                else:
+                    fw.write("table_add tbl_forward forward 10.0.0."+(str)(j-1)+" => 2\n")
         fw.write("\n")
         global_hash_range = 100000
         for hop in range(1, 10):
@@ -27,3 +34,4 @@ def generate_rules(length):
 
 if __name__ == '__main__':
     length = int(sys.argv[1])
+    generate_rules(length)
