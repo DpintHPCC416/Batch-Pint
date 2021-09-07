@@ -1,8 +1,12 @@
+---
+typora-copy-images-to: ./
+---
+
 # Topology:
 
 ​	Briefly, we constructed a linear network topology consisting of  switches and  hosts. For 3 switches, the topology is shown in this figure:
 
-![topology1](.\topology1.png)
+![](D:\Users\Lenovo\Documents\GitHub\Batch-Pint\topology1.png)
 
 # EVNIRONMENT:
 
