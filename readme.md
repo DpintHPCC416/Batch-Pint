@@ -2,7 +2,7 @@
 
 ​	Briefly, we constructed a linear network topology consisting of  switches and  hosts. For 3 switches, the topology is shown in this figure:
 
-![topo](https://github.com/venn29/Batch-Pint/blob/main/topology1.png)
+![topo](./pics/topology1.png)
 
 # EVNIRONMENT:
 
