@@ -1,0 +1,938 @@
+Calling target program-options parser
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'tbl_act': act - 
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'tbl_add_dpint_header': DpintIngress.add_dpint_header - 
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'DpintIngress.ctl_source_control.tbl_determine_task': NoAction - 
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'DpintIngress.tbl_forward': NoAction - 
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'DpintIngress.tbl_ttl_rules': NoAction - 
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'tbl_act_0': act_0 - 
+[19:25:49.668] [bmv2] [D] [thread 34226] Set default default entry for table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': NoAction - 
+Adding interface s2-eth1 as port 1
+[19:25:49.670] [bmv2] [D] [thread 34226] Adding interface s2-eth1 as port 1
+Adding interface s2-eth2 as port 2
+[19:25:49.703] [bmv2] [D] [thread 34226] Adding interface s2-eth2 as port 2
+[19:25:49.733] [bmv2] [I] [thread 34226] Starting Thrift server on port 9092
+[19:25:49.734] [bmv2] [I] [thread 34226] Thrift server was started
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Processing packet received on port 2
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Parser 'parser': start
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Extracting header 'ethernet'
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:49.786] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Bytes parsed: 14
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Parser 'parser': end
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Pipeline 'ingress': start
+[19:25:49.786] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Applying table 'tbl_act'
+[19:25:49.786] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Looking up key:
+
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Table 'tbl_act': miss
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Action entry is act - 
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Action act
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Action NoAction
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Action NoAction
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.787] [bmv2] [T] [thread 34232] [0.0] [cxt 0] Action NoAction
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Pipeline 'ingress': end
+[19:25:49.787] [bmv2] [D] [thread 34232] [0.0] [cxt 0] Egress port is 0
+[19:25:49.787] [bmv2] [D] [thread 34233] [0.0] [cxt 0] Pipeline 'egress': start
+[19:25:49.787] [bmv2] [D] [thread 34233] [0.0] [cxt 0] Pipeline 'egress': end
+[19:25:49.787] [bmv2] [D] [thread 34233] [0.0] [cxt 0] Deparser 'deparser': start
+[19:25:49.787] [bmv2] [T] [thread 34233] [0.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:49.787] [bmv2] [D] [thread 34233] [0.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:49.787] [bmv2] [D] [thread 34233] [0.0] [cxt 0] Deparser 'deparser': end
+[19:25:49.788] [bmv2] [D] [thread 34237] [0.0] [cxt 0] Transmitting packet of size 90 out of port 0
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Processing packet received on port 1
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Parser 'parser': start
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Extracting header 'ethernet'
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Bytes parsed: 14
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Parser 'parser': end
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Pipeline 'ingress': start
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Applying table 'tbl_act'
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Looking up key:
+
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Table 'tbl_act': miss
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Action entry is act - 
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Action act
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Action NoAction
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Action NoAction
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.797] [bmv2] [T] [thread 34232] [1.0] [cxt 0] Action NoAction
+[19:25:49.797] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Pipeline 'ingress': end
+[19:25:49.798] [bmv2] [D] [thread 34232] [1.0] [cxt 0] Egress port is 0
+[19:25:49.798] [bmv2] [D] [thread 34233] [1.0] [cxt 0] Pipeline 'egress': start
+[19:25:49.798] [bmv2] [D] [thread 34233] [1.0] [cxt 0] Pipeline 'egress': end
+[19:25:49.798] [bmv2] [D] [thread 34233] [1.0] [cxt 0] Deparser 'deparser': start
+[19:25:49.798] [bmv2] [T] [thread 34233] [1.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:49.798] [bmv2] [D] [thread 34233] [1.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:49.798] [bmv2] [D] [thread 34233] [1.0] [cxt 0] Deparser 'deparser': end
+[19:25:49.798] [bmv2] [D] [thread 34237] [1.0] [cxt 0] Transmitting packet of size 200 out of port 0
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Processing packet received on port 2
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Parser 'parser': start
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Extracting header 'ethernet'
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Bytes parsed: 14
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Parser 'parser': end
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Pipeline 'ingress': start
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Applying table 'tbl_act'
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Looking up key:
+
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Table 'tbl_act': miss
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Action entry is act - 
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Action act
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Action NoAction
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Action NoAction
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.830] [bmv2] [T] [thread 34232] [2.0] [cxt 0] Action NoAction
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Pipeline 'ingress': end
+[19:25:49.830] [bmv2] [D] [thread 34232] [2.0] [cxt 0] Egress port is 0
+[19:25:49.830] [bmv2] [D] [thread 34233] [2.0] [cxt 0] Pipeline 'egress': start
+[19:25:49.830] [bmv2] [D] [thread 34233] [2.0] [cxt 0] Pipeline 'egress': end
+[19:25:49.830] [bmv2] [D] [thread 34233] [2.0] [cxt 0] Deparser 'deparser': start
+[19:25:49.830] [bmv2] [T] [thread 34233] [2.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:49.831] [bmv2] [D] [thread 34233] [2.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:49.831] [bmv2] [D] [thread 34233] [2.0] [cxt 0] Deparser 'deparser': end
+[19:25:49.831] [bmv2] [D] [thread 34237] [2.0] [cxt 0] Transmitting packet of size 200 out of port 0
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Processing packet received on port 2
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Parser 'parser': start
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Extracting header 'ethernet'
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Bytes parsed: 14
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Parser 'parser': end
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Pipeline 'ingress': start
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Applying table 'tbl_act'
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Looking up key:
+
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Table 'tbl_act': miss
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Action entry is act - 
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Action act
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Action NoAction
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Action NoAction
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.917] [bmv2] [T] [thread 34232] [3.0] [cxt 0] Action NoAction
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Pipeline 'ingress': end
+[19:25:49.917] [bmv2] [D] [thread 34232] [3.0] [cxt 0] Egress port is 0
+[19:25:49.918] [bmv2] [D] [thread 34233] [3.0] [cxt 0] Pipeline 'egress': start
+[19:25:49.918] [bmv2] [D] [thread 34233] [3.0] [cxt 0] Pipeline 'egress': end
+[19:25:49.918] [bmv2] [D] [thread 34233] [3.0] [cxt 0] Deparser 'deparser': start
+[19:25:49.918] [bmv2] [T] [thread 34233] [3.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:49.918] [bmv2] [D] [thread 34233] [3.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:49.918] [bmv2] [D] [thread 34233] [3.0] [cxt 0] Deparser 'deparser': end
+[19:25:49.918] [bmv2] [D] [thread 34237] [3.0] [cxt 0] Transmitting packet of size 212 out of port 0
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Processing packet received on port 1
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Parser 'parser': start
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Extracting header 'ethernet'
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Bytes parsed: 14
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Parser 'parser': end
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Pipeline 'ingress': start
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Applying table 'tbl_act'
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Looking up key:
+
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Table 'tbl_act': miss
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Action entry is act - 
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Action act
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Action NoAction
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Action NoAction
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Action entry is NoAction - 
+[19:25:49.997] [bmv2] [T] [thread 34232] [4.0] [cxt 0] Action NoAction
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Pipeline 'ingress': end
+[19:25:49.997] [bmv2] [D] [thread 34232] [4.0] [cxt 0] Egress port is 0
+[19:25:49.997] [bmv2] [D] [thread 34233] [4.0] [cxt 0] Pipeline 'egress': start
+[19:25:49.997] [bmv2] [D] [thread 34233] [4.0] [cxt 0] Pipeline 'egress': end
+[19:25:49.997] [bmv2] [D] [thread 34233] [4.0] [cxt 0] Deparser 'deparser': start
+[19:25:49.997] [bmv2] [T] [thread 34233] [4.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:49.997] [bmv2] [D] [thread 34233] [4.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:49.997] [bmv2] [D] [thread 34233] [4.0] [cxt 0] Deparser 'deparser': end
+[19:25:49.997] [bmv2] [D] [thread 34237] [4.0] [cxt 0] Transmitting packet of size 203 out of port 0
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Processing packet received on port 2
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Parser 'parser': start
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Extracting header 'ethernet'
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Bytes parsed: 14
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Parser 'parser': end
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Pipeline 'ingress': start
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Applying table 'tbl_act'
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Looking up key:
+
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Table 'tbl_act': miss
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Action entry is act - 
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Action act
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Action NoAction
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Action NoAction
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.028] [bmv2] [T] [thread 34232] [5.0] [cxt 0] Action NoAction
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Pipeline 'ingress': end
+[19:25:50.028] [bmv2] [D] [thread 34232] [5.0] [cxt 0] Egress port is 0
+[19:25:50.028] [bmv2] [D] [thread 34233] [5.0] [cxt 0] Pipeline 'egress': start
+[19:25:50.028] [bmv2] [D] [thread 34233] [5.0] [cxt 0] Pipeline 'egress': end
+[19:25:50.028] [bmv2] [D] [thread 34233] [5.0] [cxt 0] Deparser 'deparser': start
+[19:25:50.028] [bmv2] [T] [thread 34233] [5.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:50.028] [bmv2] [D] [thread 34233] [5.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:50.028] [bmv2] [D] [thread 34233] [5.0] [cxt 0] Deparser 'deparser': end
+[19:25:50.028] [bmv2] [D] [thread 34237] [5.0] [cxt 0] Transmitting packet of size 203 out of port 0
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Processing packet received on port 2
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Parser 'parser': start
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Extracting header 'ethernet'
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Bytes parsed: 14
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Parser 'parser': end
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Pipeline 'ingress': start
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Applying table 'tbl_act'
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Looking up key:
+
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Table 'tbl_act': miss
+[19:25:50.105] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Action entry is act - 
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Action act
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:50.105] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.106] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Action NoAction
+[19:25:50.106] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.106] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Action NoAction
+[19:25:50.106] [bmv2] [T] [thread 34232] [6.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:50.106] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.106] [bmv2] [T] [thread 34232] [6.0] [cxt 0] Action NoAction
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Pipeline 'ingress': end
+[19:25:50.106] [bmv2] [D] [thread 34232] [6.0] [cxt 0] Egress port is 0
+[19:25:50.106] [bmv2] [D] [thread 34233] [6.0] [cxt 0] Pipeline 'egress': start
+[19:25:50.106] [bmv2] [D] [thread 34233] [6.0] [cxt 0] Pipeline 'egress': end
+[19:25:50.106] [bmv2] [D] [thread 34233] [6.0] [cxt 0] Deparser 'deparser': start
+[19:25:50.106] [bmv2] [T] [thread 34233] [6.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:50.106] [bmv2] [D] [thread 34233] [6.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:50.106] [bmv2] [D] [thread 34233] [6.0] [cxt 0] Deparser 'deparser': end
+[19:25:50.106] [bmv2] [D] [thread 34237] [6.0] [cxt 0] Transmitting packet of size 110 out of port 0
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Processing packet received on port 2
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Parser 'parser': start
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Extracting header 'ethernet'
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Bytes parsed: 14
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Parser 'parser': end
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Pipeline 'ingress': start
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Applying table 'tbl_act'
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Looking up key:
+
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Table 'tbl_act': miss
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Action entry is act - 
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Action act
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:50.115] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:50.115] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.116] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Action NoAction
+[19:25:50.116] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.116] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Action NoAction
+[19:25:50.116] [bmv2] [T] [thread 34232] [7.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:50.116] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.116] [bmv2] [T] [thread 34232] [7.0] [cxt 0] Action NoAction
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Pipeline 'ingress': end
+[19:25:50.116] [bmv2] [D] [thread 34232] [7.0] [cxt 0] Egress port is 0
+[19:25:50.116] [bmv2] [D] [thread 34233] [7.0] [cxt 0] Pipeline 'egress': start
+[19:25:50.116] [bmv2] [D] [thread 34233] [7.0] [cxt 0] Pipeline 'egress': end
+[19:25:50.116] [bmv2] [D] [thread 34233] [7.0] [cxt 0] Deparser 'deparser': start
+[19:25:50.116] [bmv2] [T] [thread 34233] [7.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:50.116] [bmv2] [D] [thread 34233] [7.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:50.116] [bmv2] [D] [thread 34233] [7.0] [cxt 0] Deparser 'deparser': end
+[19:25:50.116] [bmv2] [D] [thread 34237] [7.0] [cxt 0] Transmitting packet of size 200 out of port 0
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Processing packet received on port 2
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Parser 'parser': start
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Extracting header 'ethernet'
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Parser state 'start': key is 86dd
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Bytes parsed: 14
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Parser 'parser': end
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Pipeline 'ingress': start
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Applying table 'tbl_act'
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Looking up key:
+
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Table 'tbl_act': miss
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Action entry is act - 
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Action act
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] hash(base=0, max=100000) = 11037
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] hash(base=0, max=100) = 0
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is false
+[19:25:50.314] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 00000000
+
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Table 'DpintIngress.tbl_forward': miss
+[19:25:50.314] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.315] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Action NoAction
+[19:25:50.315] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0000
+
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': miss
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.315] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Action NoAction
+[19:25:50.315] [bmv2] [T] [thread 34232] [8.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:25:50.315] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0000
+
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': miss
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Action entry is NoAction - 
+[19:25:50.315] [bmv2] [T] [thread 34232] [8.0] [cxt 0] Action NoAction
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Pipeline 'ingress': end
+[19:25:50.315] [bmv2] [D] [thread 34232] [8.0] [cxt 0] Egress port is 0
+[19:25:50.315] [bmv2] [D] [thread 34233] [8.0] [cxt 0] Pipeline 'egress': start
+[19:25:50.315] [bmv2] [D] [thread 34233] [8.0] [cxt 0] Pipeline 'egress': end
+[19:25:50.315] [bmv2] [D] [thread 34233] [8.0] [cxt 0] Deparser 'deparser': start
+[19:25:50.315] [bmv2] [T] [thread 34233] [8.0] [cxt 0] Skipping checksum 'cksum' update because condition not met
+[19:25:50.315] [bmv2] [D] [thread 34233] [8.0] [cxt 0] Deparsing header 'ethernet'
+[19:25:50.315] [bmv2] [D] [thread 34233] [8.0] [cxt 0] Deparser 'deparser': end
+[19:25:50.315] [bmv2] [D] [thread 34237] [8.0] [cxt 0] Transmitting packet of size 203 out of port 0
+[19:25:51.936] [bmv2] [T] [thread 34287] bm_get_config
+[19:25:51.939] [bmv2] [T] [thread 34287] bm_mt_clear_entries
+[19:25:51.939] [bmv2] [T] [thread 34287] bm_mt_clear_entries
+[19:25:51.939] [bmv2] [T] [thread 34287] bm_mt_clear_entries
+[19:25:51.940] [bmv2] [T] [thread 34287] bm_mt_clear_entries
+[19:25:51.941] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.941] [bmv2] [D] [thread 34287] Entry 0 added to table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:51.941] [bmv2] [D] [thread 34287] Dumping entry 0
+Match key:
+* hdr.dpint.task      : EXACT     0001
+Action entry: DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+
+[19:25:51.942] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.942] [bmv2] [D] [thread 34287] Entry 1 added to table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:51.942] [bmv2] [D] [thread 34287] Dumping entry 1
+Match key:
+* hdr.dpint.task      : EXACT     0002
+Action entry: DpintIngress.ctl_DpintControl.write_task_2_value - 0,
+
+[19:25:51.942] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.942] [bmv2] [D] [thread 34287] Entry 2 added to table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:25:51.942] [bmv2] [D] [thread 34287] Dumping entry 2
+Match key:
+* hdr.dpint.task      : EXACT     0003
+Action entry: DpintIngress.ctl_DpintControl.write_task_3_value - 0,
+
+[19:25:51.942] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.942] [bmv2] [D] [thread 34287] Entry 0 added to table 'DpintIngress.tbl_forward'
+[19:25:51.942] [bmv2] [D] [thread 34287] Dumping entry 0
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000002
+Action entry: DpintIngress.forward - 1,
+
+[19:25:51.943] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.943] [bmv2] [D] [thread 34287] Entry 1 added to table 'DpintIngress.tbl_forward'
+[19:25:51.943] [bmv2] [D] [thread 34287] Dumping entry 1
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000001
+Action entry: DpintIngress.forward - 2,
+
+[19:25:51.943] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.943] [bmv2] [D] [thread 34287] Entry 2 added to table 'DpintIngress.tbl_forward'
+[19:25:51.943] [bmv2] [D] [thread 34287] Dumping entry 2
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000000
+Action entry: DpintIngress.forward - 2,
+
+[19:25:51.943] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.943] [bmv2] [D] [thread 34287] Entry 0 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.943] [bmv2] [D] [thread 34287] Dumping entry 0
+Match key:
+* hdr.dpint.hop       : EXACT     0001
+Action entry: DpintIngress.get_approximation - 186a0,
+
+[19:25:51.943] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.943] [bmv2] [D] [thread 34287] Entry 1 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.943] [bmv2] [D] [thread 34287] Dumping entry 1
+Match key:
+* hdr.dpint.hop       : EXACT     0002
+Action entry: DpintIngress.get_approximation - c350,
+
+[19:25:51.944] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.944] [bmv2] [D] [thread 34287] Entry 2 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.944] [bmv2] [D] [thread 34287] Dumping entry 2
+Match key:
+* hdr.dpint.hop       : EXACT     0003
+Action entry: DpintIngress.get_approximation - 8235,
+
+[19:25:51.944] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.944] [bmv2] [D] [thread 34287] Entry 3 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.944] [bmv2] [D] [thread 34287] Dumping entry 3
+Match key:
+* hdr.dpint.hop       : EXACT     0004
+Action entry: DpintIngress.get_approximation - 61a8,
+
+[19:25:51.944] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.944] [bmv2] [D] [thread 34287] Entry 4 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.944] [bmv2] [D] [thread 34287] Dumping entry 4
+Match key:
+* hdr.dpint.hop       : EXACT     0005
+Action entry: DpintIngress.get_approximation - 4e20,
+
+[19:25:51.944] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.944] [bmv2] [D] [thread 34287] Entry 5 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.944] [bmv2] [D] [thread 34287] Dumping entry 5
+Match key:
+* hdr.dpint.hop       : EXACT     0006
+Action entry: DpintIngress.get_approximation - 411a,
+
+[19:25:51.945] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.945] [bmv2] [D] [thread 34287] Entry 6 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.945] [bmv2] [D] [thread 34287] Dumping entry 6
+Match key:
+* hdr.dpint.hop       : EXACT     0007
+Action entry: DpintIngress.get_approximation - 37cd,
+
+[19:25:51.945] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.945] [bmv2] [D] [thread 34287] Entry 7 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.945] [bmv2] [D] [thread 34287] Dumping entry 7
+Match key:
+* hdr.dpint.hop       : EXACT     0008
+Action entry: DpintIngress.get_approximation - 30d4,
+
+[19:25:51.945] [bmv2] [T] [thread 34287] bm_table_add_entry
+[19:25:51.945] [bmv2] [D] [thread 34287] Entry 8 added to table 'DpintIngress.tbl_ttl_rules'
+[19:25:51.945] [bmv2] [D] [thread 34287] Dumping entry 8
+Match key:
+* hdr.dpint.hop       : EXACT     0009
+Action entry: DpintIngress.get_approximation - 2b67,
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Processing packet received on port 2
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser 'parser': start
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Extracting header 'ethernet'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser state 'start': key is 0800
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Bytes parsed: 14
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Extracting header 'ipv4'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser state 'parse_ipv4': key is 7d
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Bytes parsed: 34
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser 'parser' entering state 'parse_dpint'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Extracting header 'dpint'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser state 'parse_dpint' has no switch, going to default next state
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Bytes parsed: 42
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Parser 'parser': end
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Pipeline 'ingress': start
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Applying table 'tbl_act'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Looking up key:
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Table 'tbl_act': miss
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Action entry is act - 
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Action act
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] hash(base=0, max=100000) = 228
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] hash(base=0, max=100) = 60
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is true
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(247) Condition "!hdr.dpint.isValid()" (node_4) is false
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 0a000002
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Table 'DpintIngress.tbl_forward': hit with handle 0
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000002
+Action entry: DpintIngress.forward - 1,
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Action entry is DpintIngress.forward - 1,
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Action DpintIngress.forward
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(203) Primitive hdr.ipv4.ecn = 1
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(204) Primitive standard_metadata.egress_spec = egress_port
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(205) Primitive hdr.ipv4.ttl = hdr.ipv4.ttl - 1
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(206) Primitive hdr.dpint.hop = hdr.dpint.hop + 1
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0003
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': hit with handle 2
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.dpint.hop       : EXACT     0003
+Action entry: DpintIngress.get_approximation - 8235,
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Action entry is DpintIngress.get_approximation - 8235,
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Action DpintIngress.get_approximation
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(223) Primitive dp_meta.approximation = approximation
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is true
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Applying table 'tbl_act_0'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Looking up key:
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Table 'tbl_act_0': miss
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Action entry is act_0 - 
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Action act_0
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(257) Primitive dp_meta.flow_global_write_or_not = 1
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0001
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': hit with handle 0
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.dpint.task      : EXACT     0001
+Action entry: DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Action entry is DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] Action DpintIngress.ctl_DpintControl.write_task_1_value
+[19:26:19.563] [bmv2] [T] [thread 34232] [9.0] [cxt 0] p4src/dpint.p4(144) Primitive hdr.dpint.value =
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Pipeline 'ingress': end
+[19:26:19.563] [bmv2] [D] [thread 34232] [9.0] [cxt 0] Egress port is 1
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Pipeline 'egress': start
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Pipeline 'egress': end
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Deparser 'deparser': start
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Updating checksum 'cksum'
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Deparsing header 'ethernet'
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Deparsing header 'ipv4'
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Deparsing header 'dpint'
+[19:26:19.563] [bmv2] [D] [thread 34234] [9.0] [cxt 0] Deparser 'deparser': end
+[19:26:19.563] [bmv2] [D] [thread 34237] [9.0] [cxt 0] Transmitting packet of size 42 out of port 1
+[19:26:19.668] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Processing packet received on port 2
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser 'parser': start
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Extracting header 'ethernet'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser state 'start': key is 0800
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Bytes parsed: 14
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Extracting header 'ipv4'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser state 'parse_ipv4': key is 7d
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Bytes parsed: 34
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser 'parser' entering state 'parse_dpint'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Extracting header 'dpint'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser state 'parse_dpint' has no switch, going to default next state
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Bytes parsed: 42
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Parser 'parser': end
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Pipeline 'ingress': start
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Applying table 'tbl_act'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Looking up key:
+
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Table 'tbl_act': miss
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Action entry is act - 
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Action act
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] hash(base=0, max=100000) = 32181
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] hash(base=0, max=100) = 57
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is true
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(247) Condition "!hdr.dpint.isValid()" (node_4) is false
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 0a000002
+
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Table 'DpintIngress.tbl_forward': hit with handle 0
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000002
+Action entry: DpintIngress.forward - 1,
+
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Action entry is DpintIngress.forward - 1,
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Action DpintIngress.forward
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(203) Primitive hdr.ipv4.ecn = 1
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(204) Primitive standard_metadata.egress_spec = egress_port
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(205) Primitive hdr.ipv4.ttl = hdr.ipv4.ttl - 1
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(206) Primitive hdr.dpint.hop = hdr.dpint.hop + 1
+[19:26:19.669] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0003
+
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': hit with handle 2
+[19:26:19.669] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.dpint.hop       : EXACT     0003
+Action entry: DpintIngress.get_approximation - 8235,
+
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Action entry is DpintIngress.get_approximation - 8235,
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Action DpintIngress.get_approximation
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(223) Primitive dp_meta.approximation = approximation
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is true
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Applying table 'tbl_act_0'
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Looking up key:
+
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Table 'tbl_act_0': miss
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Action entry is act_0 - 
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Action act_0
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(257) Primitive dp_meta.flow_global_write_or_not = 1
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0001
+
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': hit with handle 0
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.dpint.task      : EXACT     0001
+Action entry: DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Action entry is DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] Action DpintIngress.ctl_DpintControl.write_task_1_value
+[19:26:19.670] [bmv2] [T] [thread 34232] [10.0] [cxt 0] p4src/dpint.p4(144) Primitive hdr.dpint.value =
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Pipeline 'ingress': end
+[19:26:19.670] [bmv2] [D] [thread 34232] [10.0] [cxt 0] Egress port is 1
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Pipeline 'egress': start
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Pipeline 'egress': end
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Deparser 'deparser': start
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Updating checksum 'cksum'
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Deparsing header 'ethernet'
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Deparsing header 'ipv4'
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Deparsing header 'dpint'
+[19:26:19.670] [bmv2] [D] [thread 34234] [10.0] [cxt 0] Deparser 'deparser': end
+[19:26:19.670] [bmv2] [D] [thread 34237] [10.0] [cxt 0] Transmitting packet of size 42 out of port 1
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Processing packet received on port 2
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser 'parser': start
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Extracting header 'ethernet'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser state 'start': key is 0800
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Bytes parsed: 14
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Extracting header 'ipv4'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser state 'parse_ipv4': key is 7d
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Bytes parsed: 34
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser 'parser' entering state 'parse_dpint'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Extracting header 'dpint'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser state 'parse_dpint' has no switch, going to default next state
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Bytes parsed: 42
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Parser 'parser': end
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Pipeline 'ingress': start
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Applying table 'tbl_act'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Looking up key:
+
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Table 'tbl_act': miss
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Action entry is act - 
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Action act
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] hash(base=0, max=100000) = 32026
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] hash(base=0, max=100) = 48
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is true
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(247) Condition "!hdr.dpint.isValid()" (node_4) is false
+[19:26:19.772] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:26:19.772] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 0a000002
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Table 'DpintIngress.tbl_forward': hit with handle 0
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000002
+Action entry: DpintIngress.forward - 1,
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Action entry is DpintIngress.forward - 1,
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Action DpintIngress.forward
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(203) Primitive hdr.ipv4.ecn = 1
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(204) Primitive standard_metadata.egress_spec = egress_port
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(205) Primitive hdr.ipv4.ttl = hdr.ipv4.ttl - 1
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(206) Primitive hdr.dpint.hop = hdr.dpint.hop + 1
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0003
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': hit with handle 2
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.dpint.hop       : EXACT     0003
+Action entry: DpintIngress.get_approximation - 8235,
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Action entry is DpintIngress.get_approximation - 8235,
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Action DpintIngress.get_approximation
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(223) Primitive dp_meta.approximation = approximation
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is true
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Applying table 'tbl_act_0'
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Looking up key:
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Table 'tbl_act_0': miss
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Action entry is act_0 - 
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Action act_0
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(257) Primitive dp_meta.flow_global_write_or_not = 1
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0002
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': hit with handle 1
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.dpint.task      : EXACT     0002
+Action entry: DpintIngress.ctl_DpintControl.write_task_2_value - 0,
+
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Action entry is DpintIngress.ctl_DpintControl.write_task_2_value - 0,
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] Action DpintIngress.ctl_DpintControl.write_task_2_value
+[19:26:19.773] [bmv2] [T] [thread 34232] [11.0] [cxt 0] p4src/dpint.p4(152) Primitive hdr.dpint.value =
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Pipeline 'ingress': end
+[19:26:19.773] [bmv2] [D] [thread 34232] [11.0] [cxt 0] Egress port is 1
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Pipeline 'egress': start
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Pipeline 'egress': end
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Deparser 'deparser': start
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Updating checksum 'cksum'
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Deparsing header 'ethernet'
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Deparsing header 'ipv4'
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Deparsing header 'dpint'
+[19:26:19.773] [bmv2] [D] [thread 34234] [11.0] [cxt 0] Deparser 'deparser': end
+[19:26:19.773] [bmv2] [D] [thread 34237] [11.0] [cxt 0] Transmitting packet of size 42 out of port 1
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Processing packet received on port 2
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser 'parser': start
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser 'parser' entering state 'start'
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Extracting header 'ethernet'
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser state 'start': key is 0800
+[19:26:19.874] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Bytes parsed: 14
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser 'parser' entering state 'parse_ipv4'
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Extracting header 'ipv4'
+[19:26:19.874] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser state 'parse_ipv4': key is 7d
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Bytes parsed: 34
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser 'parser' entering state 'parse_dpint'
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Extracting header 'dpint'
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser state 'parse_dpint' has no switch, going to default next state
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Bytes parsed: 42
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Parser 'parser': end
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Pipeline 'ingress': start
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Applying table 'tbl_act'
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Looking up key:
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Table 'tbl_act': miss
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Action entry is act - 
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Action act
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(241) Primitive 256 - (bit<32>)hdr.ipv4.ttl
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(242) Primitive hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)100000)
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] hash(base=0, max=100000) = 39574
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(244) Primitive hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)100)
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] hash(base=0, max=100) = 99
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(245) Condition "hdr.ipv4.isValid()" (node_3) is true
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(247) Condition "!hdr.dpint.isValid()" (node_4) is false
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Applying table 'DpintIngress.tbl_forward'
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Looking up key:
+* hdr.ipv4.dstAddr    : 0a000002
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Table 'DpintIngress.tbl_forward': hit with handle 0
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.ipv4.dstAddr    : EXACT     0a000002
+Action entry: DpintIngress.forward - 1,
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Action entry is DpintIngress.forward - 1,
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Action DpintIngress.forward
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(203) Primitive hdr.ipv4.ecn = 1
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(204) Primitive standard_metadata.egress_spec = egress_port
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(205) Primitive hdr.ipv4.ttl = hdr.ipv4.ttl - 1
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(206) Primitive hdr.dpint.hop = hdr.dpint.hop + 1
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Applying table 'DpintIngress.tbl_ttl_rules'
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Looking up key:
+* hdr.dpint.hop       : 0003
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Table 'DpintIngress.tbl_ttl_rules': hit with handle 2
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.dpint.hop       : EXACT     0003
+Action entry: DpintIngress.get_approximation - 8235,
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Action entry is DpintIngress.get_approximation - 8235,
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Action DpintIngress.get_approximation
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(223) Primitive dp_meta.approximation = approximation
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(256) Condition "dp_meta.global_hash < dp_meta.approximation" (node_9) is false
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Applying table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0'
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Looking up key:
+* hdr.dpint.task      : 0001
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Table 'DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0': hit with handle 0
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.dpint.task      : EXACT     0001
+Action entry: DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Action entry is DpintIngress.ctl_DpintControl.write_task_1_value - 7,
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] Action DpintIngress.ctl_DpintControl.write_task_1_value
+[19:26:19.875] [bmv2] [T] [thread 34232] [12.0] [cxt 0] p4src/dpint.p4(144) Primitive hdr.dpint.value =
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Pipeline 'ingress': end
+[19:26:19.875] [bmv2] [D] [thread 34232] [12.0] [cxt 0] Egress port is 1
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Pipeline 'egress': start
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Pipeline 'egress': end
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Deparser 'deparser': start
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Updating checksum 'cksum'
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Deparsing header 'ethernet'
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Deparsing header 'ipv4'
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Deparsing header 'dpint'
+[19:26:19.876] [bmv2] [D] [thread 34234] [12.0] [cxt 0] Deparser 'deparser': end
+[19:26:19.876] [bmv2] [D] [thread 34237] [12.0] [cxt 0] Transmitting packet of size 42 out of port 1
+open: No such file or directory
+open: No such file or directory

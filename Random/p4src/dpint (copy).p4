@@ -2,10 +2,7 @@
 #include <v1model.p4>
 #define ETHERTYPE_IPV4 0x0800
 #define PROTOCOL_DPINT 125
-#define DECIDER_HASH_UPBOUND 100
-#define GLOBAL_HASH_UPBOUND 100000
 #define QUERY_NUMBER 3
-#define BATCH_NUMBER 3
 
 header ethernet_h
 {
@@ -51,14 +48,17 @@ struct dpint_metadata_t{
     bit<32> telemetry_value_timestamp;
     bit<32> telemetry_value_switch_id;
     bit<32> telemetry_value_enq_qdepth;
-
+    //暂时用三个做，做好了再扩充很方便
+    bit<32> switchID;
     bit<32> decider_hash;
     bit<48> global_hash;
     bit<48> approximation;
     bit<32> count; 
     bit<1> switch_is_sink;
     bit<1> flow_global_write_or_not;
+
 }
+
 
 parser IngressParser(packet_in pkt,
                     out headers hdr,
@@ -97,14 +97,15 @@ parser IngressParser(packet_in pkt,
     }
 }
 
+
 control MyVerifyChecksum(inout headers hdr, inout dpint_metadata_t dp_meta) {
     apply {  }
 }
 
 
-control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)   
+control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    //决定写什么任务
 {
-    action write_task_1()      
+    action write_task_1()      //utilization
     {
         hdr.dpint.task = 0x1; 
     }
@@ -119,8 +120,8 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
     table tbl_determine_task
     {
         key = {
-            dp_meta.decider_hash:range;
-        }
+		dp_meta.decider_hash:exact;
+	}
     
     actions = {
         write_task_1;
@@ -135,9 +136,10 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
     }
 }
 
+
 control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout standard_metadata_t standard_metadata)
 {
-    action write_task_1_value(bit<32> switch_id)    
+    action write_task_1_value(bit<32> switch_id)    //这个可以直接硬写在表里
     {
         if(dp_meta.flow_global_write_or_not == 1 )
         {
@@ -157,7 +159,7 @@ control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout sta
     {
         if(dp_meta.flow_global_write_or_not == 1)
         {
-            hdr.dpint.value = (bit<32>)standard_metadata.enq_qdepth;    
+            hdr.dpint.value = (bit<32>) standard_metadata.enq_qdepth;     //这里的enq_qdpeth是19位的，到时候要注意一下，可能出bug?不行的话就或一个三十二位的掩码
         }
     }
 
@@ -174,13 +176,12 @@ control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout sta
             write_task_3_value;
         }
     }
-        apply
-        {
-            tbl_do_telemetry_level_0.apply();
-        }
-    
-
+    apply
+    {
+        tbl_do_telemetry_level_0.apply();
+    }
 }
+
 
 control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout standard_metadata_t standard_metadata)
 {
@@ -194,6 +195,7 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
     {
         hdr.ipv4.protocol = PROTOCOL_DPINT;
         hdr.dpint.setValid();
+        hdr.dpint.hop = 0;
         hdr.dpint.task = 0;
         hdr.dpint.value = 0;
     }
@@ -222,51 +224,53 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
     {
         dp_meta.approximation = approximation;
     }
-
     table tbl_ttl_rules
     {
         key = {
             hdr.dpint.hop: exact;
         }
-        actions = 
-        {
+        actions = {
             get_approximation;
             NoAction;
         }
         default_action = NoAction;
     }
-    register <bit<4>> (1) query_counter;    
-    register <bit<32>> (1) last_hash;
+    register<bit<4>> (1)  query_reg;    /*4位，初始值为1，一共1个*/
     apply
     {
-        bit<32> new_decider_hash;
         bit<32> diff = 256 - (bit<32>)hdr.ipv4.ttl;
-        hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)GLOBAL_HASH_UPBOUND);
-        hash(new_decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)DECIDER_HASH_UPBOUND);
-        if(hdr.ipv4.isValid())      
+        hash(dp_meta.global_hash, HashAlgorithm.crc32, (bit<1>)0, {hdr.ipv4.identification,diff},(bit<48>)GLOBAL_HASH_UPBOUND);
+        if(hdr.ipv4.isValid())      //如果没有DPINT头部，则加一个
         {
             if(!hdr.dpint.isValid())
             {
-                add_dpint_header();
-                bit<4> query_count;
-                query_counter.read(query_count,0);
-                if(query_count == BATCH_NUMBER || query_count == 0)
+                //决定任务
+                bit<4>  query;
+                query_reg.read(query,0);    /*读取当前任务*/  
+                //这里的表的值，直接exact匹配
+                if(query == 0)  //no way to initiate,so 
                 {
-                    dp_meta.decider_hash = new_decider_hash;
-                    last_hash.write(0,new_decider_hash);
-                    query_counter.write(0,1);
+                    query = 1;
+                }
+                dp_meta.decider_hash = (bit<32>)query;
+                
+                if(query == 3)
+                {
+                    query = 1;
                 }
                 else
                 {
-                    last_hash.read(dp_meta.decider_hash,0);
-                    query_counter.write(0,query_count+1);
+                    query = query + 1;
                 }
+                query_reg.write(0,query);
+
+                //写入
+                add_dpint_header();
                 ctl_source_control.apply(hdr,dp_meta);
             }
         }
-
         tbl_forward.apply();
-        tbl_ttl_rules.apply();      
+        tbl_ttl_rules.apply();
         if(dp_meta.global_hash < dp_meta.approximation)
             dp_meta.flow_global_write_or_not = 1;
         ctl_DpintControl.apply(hdr,dp_meta,standard_metadata);
@@ -274,6 +278,8 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
 }
 
 
+
+//下面的还没检查
 
 control MyComputeChecksum(inout headers  hdr, inout dpint_metadata_t dp_meta) {
      apply {

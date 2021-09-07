@@ -5,7 +5,7 @@
 #define DECIDER_HASH_UPBOUND 100
 #define GLOBAL_HASH_UPBOUND 100000
 #define QUERY_NUMBER 3
-
+#define BATCH_NUMBER 3
 header ethernet_h
 {
     bit<48> dstAddr;
@@ -50,6 +50,7 @@ struct dpint_metadata_t{
     bit<32> telemetry_value_timestamp;
     bit<32> telemetry_value_switch_id;
     bit<32> telemetry_value_enq_qdepth;
+    //暂时用三个做，做好了再扩充很方便
 
     bit<32> decider_hash;
     bit<48> global_hash;
@@ -57,6 +58,7 @@ struct dpint_metadata_t{
     bit<32> count; 
     bit<1> switch_is_sink;
     bit<1> flow_global_write_or_not;
+    bit<16> flow_ID;
 }
 
 parser IngressParser(packet_in pkt,
@@ -101,9 +103,9 @@ control MyVerifyChecksum(inout headers hdr, inout dpint_metadata_t dp_meta) {
 }
 
 
-control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)   
+control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    //决定写什么任务
 {
-    action write_task_1()    
+    action write_task_1()      //switch_id
     {
         hdr.dpint.task = 0x1; 
     }
@@ -136,7 +138,7 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
 
 control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout standard_metadata_t standard_metadata)
 {
-    action write_task_1_value(bit<32> switch_id)    
+    action write_task_1_value(bit<32> switch_id)    //这个可以直接硬写在表里
     {
         if(dp_meta.flow_global_write_or_not == 1 )
         {
@@ -156,7 +158,7 @@ control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout sta
     {
         if(dp_meta.flow_global_write_or_not == 1)
         {
-            hdr.dpint.value = (bit<32>)standard_metadata.enq_qdepth;    
+            hdr.dpint.value = (bit<32>)standard_metadata.enq_qdepth;     //这里的enq_qdpeth是19位的，到时候要注意一下，可能出bug?不行的话就或一个三十二位的掩码
         }
     }
 
@@ -234,24 +236,42 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         }
         default_action = NoAction;
     }
-
+    register <bit<4>> (1) query_counter;    //for now it's a global counter    
+                                            //indeed we need to set a counter for each flow 
+                                            //it is same for round_robin
+    register <bit<32>> (1) last_hash;
     apply
     {
+        bit<32> new_decider_hash;
         bit<32> diff = 256 - (bit<32>)hdr.ipv4.ttl;
+        
         hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)GLOBAL_HASH_UPBOUND);
-      
-        hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)DECIDER_HASH_UPBOUND);
-        if(hdr.ipv4.isValid())     
+        //我认为这里应该使用TCP五元组,虽然影响不大
+        hash(new_decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)DECIDER_HASH_UPBOUND);
+        if(hdr.ipv4.isValid())      //如果没有DPINT头部，则加一个
         {
             if(!hdr.dpint.isValid())
             {
                 add_dpint_header();
+                bit<4> query_count;
+                query_counter.read(query_count,0);
+                if(query_count == BATCH_NUMBER || query_count == 0)
+                {
+                    dp_meta.decider_hash = new_decider_hash;
+                    last_hash.write(0,new_decider_hash);
+                    query_counter.write(0,1);
+                }
+                else
+                {
+                    last_hash.read(dp_meta.decider_hash,0);
+                    query_counter.write(0,query_count+1);
+                }
                 ctl_source_control.apply(hdr,dp_meta);
             }
         }
 
         tbl_forward.apply();
-        tbl_ttl_rules.apply();     
+        tbl_ttl_rules.apply();      //读取ttl对应的界限
         if(dp_meta.global_hash < dp_meta.approximation)
             dp_meta.flow_global_write_or_not = 1;
         ctl_DpintControl.apply(hdr,dp_meta,standard_metadata);
@@ -259,6 +279,8 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
 }
 
 
+
+//下面的还没检查
 
 control MyComputeChecksum(inout headers  hdr, inout dpint_metadata_t dp_meta) {
      apply {

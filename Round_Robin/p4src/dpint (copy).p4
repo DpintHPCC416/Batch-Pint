@@ -48,6 +48,7 @@ struct dpint_metadata_t{
     bit<32> telemetry_value_timestamp;
     bit<32> telemetry_value_switch_id;
     bit<32> telemetry_value_enq_qdepth;
+    //暂时用三个做，做好了再扩充很方便
     bit<32> switchID;
     bit<32> decider_hash;
     bit<48> global_hash;
@@ -102,9 +103,9 @@ control MyVerifyChecksum(inout headers hdr, inout dpint_metadata_t dp_meta) {
 }
 
 
-control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)   
+control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    //决定写什么任务
 {
-    action write_task_1()      
+    action write_task_1()      //utilization
     {
         hdr.dpint.task = 0x1; 
     }
@@ -138,7 +139,7 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
 
 control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout standard_metadata_t standard_metadata)
 {
-    action write_task_1_value(bit<32> switch_id)    
+    action write_task_1_value(bit<32> switch_id)    //这个可以直接硬写在表里
     {
         if(dp_meta.flow_global_write_or_not == 1 )
         {
@@ -158,7 +159,7 @@ control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout sta
     {
         if(dp_meta.flow_global_write_or_not == 1)
         {
-            hdr.dpint.value = (bit<32>) standard_metadata.enq_qdepth;     
+            hdr.dpint.value = (bit<32>) standard_metadata.enq_qdepth;     //这里的enq_qdpeth是19位的，到时候要注意一下，可能出bug?不行的话就或一个三十二位的掩码
         }
     }
 
@@ -234,19 +235,20 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         }
         default_action = NoAction;
     }
-    register<bit<4>> (1)  query_reg;   
+    register<bit<4>> (1)  query_reg;    /*4位，初始值为1，一共1个*/
     apply
     {
         bit<32> diff = 256 - (bit<32>)hdr.ipv4.ttl;
         hash(dp_meta.global_hash, HashAlgorithm.crc32, (bit<1>)0, {hdr.ipv4.identification,diff},(bit<48>)GLOBAL_HASH_UPBOUND);
-        if(hdr.ipv4.isValid())      
+        if(hdr.ipv4.isValid())      //如果没有DPINT头部，则加一个
         {
             if(!hdr.dpint.isValid())
             {
-               
+                //决定任务
                 bit<4>  query;
-                query_reg.read(query,0);    
-                if(query == 0)  
+                query_reg.read(query,0);    /*读取当前任务*/  
+                //这里的表的值，直接exact匹配
+                if(query == 0)  //no way to initiate,so 
                 {
                     query = 1;
                 }
@@ -261,6 +263,8 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
                     query = query + 1;
                 }
                 query_reg.write(0,query);
+
+                //写入
                 add_dpint_header();
                 ctl_source_control.apply(hdr,dp_meta);
             }
@@ -273,6 +277,9 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
     }
 }
 
+
+
+//下面的还没检查
 
 control MyComputeChecksum(inout headers  hdr, inout dpint_metadata_t dp_meta) {
      apply {

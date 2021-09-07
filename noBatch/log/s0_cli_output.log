@@ -1,0 +1,94 @@
+Obtaining JSON from switch...
+Done
+Control utility for runtime P4 table manipulation
+RuntimeCmd: RuntimeCmd: RuntimeCmd: RuntimeCmd: RuntimeCmd: Adding entry to exact match table tbl_do_telemetry_level_0
+match key:           EXACT-00:01
+action:              write_task_1_value
+runtime data:        00:00:00:05
+Entry has been added with handle 0
+RuntimeCmd: Adding entry to exact match table tbl_do_telemetry_level_0
+match key:           EXACT-00:02
+action:              write_task_2_value
+runtime data:        00:00:00:00
+Entry has been added with handle 1
+RuntimeCmd: Adding entry to exact match table tbl_do_telemetry_level_0
+match key:           EXACT-00:03
+action:              write_task_3_value
+runtime data:        00:00:00:00
+Entry has been added with handle 2
+RuntimeCmd: Adding entry to exact match table tbl_forward
+match key:           EXACT-0a:00:00:02
+action:              forward
+runtime data:        00:02
+Entry has been added with handle 0
+RuntimeCmd: Adding entry to exact match table tbl_forward
+match key:           EXACT-0a:00:00:01
+action:              forward
+runtime data:        00:02
+Entry has been added with handle 1
+RuntimeCmd: Adding entry to exact match table tbl_forward
+match key:           EXACT-0a:00:00:00
+action:              forward
+runtime data:        00:01
+Entry has been added with handle 2
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:01
+action:              get_approximation
+runtime data:        00:00:00:01:86:a0
+Entry has been added with handle 0
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:02
+action:              get_approximation
+runtime data:        00:00:00:00:c3:50
+Entry has been added with handle 1
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:03
+action:              get_approximation
+runtime data:        00:00:00:00:82:35
+Entry has been added with handle 2
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:04
+action:              get_approximation
+runtime data:        00:00:00:00:61:a8
+Entry has been added with handle 3
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:05
+action:              get_approximation
+runtime data:        00:00:00:00:4e:20
+Entry has been added with handle 4
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:06
+action:              get_approximation
+runtime data:        00:00:00:00:41:1a
+Entry has been added with handle 5
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:07
+action:              get_approximation
+runtime data:        00:00:00:00:37:cd
+Entry has been added with handle 6
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:08
+action:              get_approximation
+runtime data:        00:00:00:00:30:d4
+Entry has been added with handle 7
+RuntimeCmd: Adding entry to exact match table tbl_ttl_rules
+match key:           EXACT-00:09
+action:              get_approximation
+runtime data:        00:00:00:00:2b:67
+Entry has been added with handle 8
+RuntimeCmd: Adding entry to range match table tbl_determine_task
+match key:           RANGE-00:00:00:00 -> 00:00:00:10
+action:              write_task_3
+runtime data:        
+Entry has been added with handle 0
+RuntimeCmd: Adding entry to range match table tbl_determine_task
+match key:           RANGE-00:00:00:11 -> 00:00:00:30
+action:              write_task_2
+runtime data:        
+Entry has been added with handle 1
+RuntimeCmd: Adding entry to range match table tbl_determine_task
+match key:           RANGE-00:00:00:30 -> 00:00:00:63
+action:              write_task_1
+runtime data:        
+Entry has been added with handle 2
+RuntimeCmd: 
