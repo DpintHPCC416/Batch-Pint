@@ -50,7 +50,6 @@ struct dpint_metadata_t{
     bit<32> telemetry_value_timestamp;
     bit<32> telemetry_value_switch_id;
     bit<32> telemetry_value_enq_qdepth;
-    //暂时用三个做，做好了再扩充很方便
 
     bit<32> decider_hash;
     bit<48> global_hash;
@@ -102,9 +101,9 @@ control MyVerifyChecksum(inout headers hdr, inout dpint_metadata_t dp_meta) {
 }
 
 
-control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    //决定写什么任务
+control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    
 {
-    action write_task_1()      //switch_id
+    action write_task_1()      
     {
         hdr.dpint.task = 0x1; 
     }
@@ -137,7 +136,7 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    //�
 
 control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout standard_metadata_t standard_metadata)
 {
-    action write_task_1_value(bit<32> switch_id)    //这个可以直接硬写在表里
+    action write_task_1_value(bit<32> switch_id)    
     {
         if(dp_meta.flow_global_write_or_not == 1 )
         {
@@ -157,7 +156,7 @@ control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout sta
     {
         if(dp_meta.flow_global_write_or_not == 1)
         {
-            hdr.dpint.value = (bit<32>)standard_metadata.enq_qdepth;     //这里的enq_qdpeth是19位的，到时候要注意一下，可能出bug?不行的话就或一个三十二位的掩码
+            hdr.dpint.value = (bit<32>)standard_metadata.enq_qdepth;     
         }
     }
 
@@ -240,9 +239,9 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
     {
         bit<32> diff = 256 - (bit<32>)hdr.ipv4.ttl;
         hash(dp_meta.global_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.identification,hdr.ipv4.dstAddr,diff},(bit<48>)GLOBAL_HASH_UPBOUND);
-        //我认为这里应该使用TCP五元组,虽然影响不大
+       
         hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)DECIDER_HASH_UPBOUND);
-        if(hdr.ipv4.isValid())      //如果没有DPINT头部，则加一个
+        if(hdr.ipv4.isValid())     
         {
             if(!hdr.dpint.isValid())
             {
@@ -252,7 +251,7 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         }
 
         tbl_forward.apply();
-        tbl_ttl_rules.apply();      //读取ttl对应的界限
+        tbl_ttl_rules.apply();     
         if(dp_meta.global_hash < dp_meta.approximation)
             dp_meta.flow_global_write_or_not = 1;
         ctl_DpintControl.apply(hdr,dp_meta,standard_metadata);
@@ -261,7 +260,6 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
 
 
 
-//下面的还没检查
 
 control MyComputeChecksum(inout headers  hdr, inout dpint_metadata_t dp_meta) {
      apply {
