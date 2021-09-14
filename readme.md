@@ -48,7 +48,7 @@ sudo p4run --config p4app.json
 
 - in mininet, `xterm h0 h2` to call the bash window. In h2, `python utils/recv.py` to receive. In h0, `python utils/send.py` to send. In configure, we need to set `receive_ip` to 10.0.0.2 and `send_ip` to 10.0.0.0. Also, you can change `total_packets` to control how many sender will send.
 
-# For Debug:
+# For Debuging:
 
 - The log information would be generated in folder  `log`.
 - the packet captured information for each switch would be put in the folder` pcap`. Open with wireshark.
