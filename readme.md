@@ -1,6 +1,10 @@
 # Topology:
 
-​	Briefly, we constructed a linear network topology consisting of  switches and  hosts. For 3 switches, the topology is shown in this figure:
+​	Our fat tree topology is :
+
+![Fat-tree_topo](./fat-tree/pics/Fat-tree_topo.png)
+
+​	You can also constructed a linear network topology consisting of  switches and  hosts for simple tests. For 3 switches, the topology is shown in this figure:
 
 ![topo](./pics/topology1.png)
 
