@@ -7,6 +7,7 @@
 #define QUERY_NUMBER 4
 #define BATCH_NUMBER 5
 #define FLOW_ID_UPBOUND 65535
+
 header ethernet_h
 {
     bit<48> dstAddr;
@@ -104,7 +105,7 @@ control MyVerifyChecksum(inout headers hdr, inout dpint_metadata_t dp_meta) {
 }
 
 
-control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    //决定写什么任务
+control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    
 {
     action write_task_1()      
     {
@@ -257,10 +258,6 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         default_action = drop();
     }
 
-    action get_approximation(bit<48> approximation)
-    {
-        dp_meta.approximation = approximation;
-    }
 
     
     register <bit<4>> (500) query_counter;
@@ -339,6 +336,11 @@ control MyDeparser(packet_out pkt, in headers hdr)
 
 control MyEgress(inout headers hdr, inout dpint_metadata_t dp_meta, inout standard_metadata_t standard_metadata)
 {
+    
+    action get_approximation(bit<48> approximation)
+    {
+        dp_meta.approximation = approximation;
+    }
     table tbl_ttl_rules
     {
         key = {

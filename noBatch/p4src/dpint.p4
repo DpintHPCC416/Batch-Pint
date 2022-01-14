@@ -2,9 +2,10 @@
 #include <v1model.p4>
 #define ETHERTYPE_IPV4 0x0800
 #define PROTOCOL_DPINT 125
-#define DECIDER_HASH_UPBOUND 100
-#define GLOBAL_HASH_UPBOUND 100000
-#define QUERY_NUMBER 3
+#define DECIDER_HASH_UPBOUND 999
+#define GLOBAL_HASH_UPBOUND 65535
+#define QUERY_NUMBER 4
+#define FLOW_ID_UPBOUND 65535
 
 header ethernet_h
 {
@@ -47,16 +48,18 @@ struct headers
 
 
 struct dpint_metadata_t{
-    bit<32> telemetry_value_timestamp;
-    bit<32> telemetry_value_switch_id;
-    bit<32> telemetry_value_enq_qdepth;
-
+    bit<32> out_port;
     bit<32> decider_hash;
     bit<48> global_hash;
     bit<48> approximation;
     bit<32> count; 
     bit<1> switch_is_sink;
     bit<1> flow_global_write_or_not;
+    bit<32> flow_ID;
+    bit<32> inter_arrival_time;
+    bit<32> flow_forward_number;
+    bit<32> switch_forward_number;
+    bit<32> port_packet_number;
 }
 
 parser IngressParser(packet_in pkt,
@@ -101,7 +104,7 @@ control MyVerifyChecksum(inout headers hdr, inout dpint_metadata_t dp_meta) {
 }
 
 
-control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)    
+control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)   
 {
     action write_task_1()      
     {
@@ -115,6 +118,10 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
     {
         hdr.dpint.task = 0x3;
     }
+    action write_task_4()
+    {
+        hdr.dpint.task = 0x4;
+    }
     table tbl_determine_task
     {
         key = {
@@ -125,6 +132,7 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
         write_task_1;
         write_task_2;
         write_task_3;
+        write_task_4;
         NoAction;
     }
     }
@@ -136,27 +144,41 @@ control source_control(inout headers hdr,inout dpint_metadata_t dp_meta)
 
 control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout standard_metadata_t standard_metadata)
 {
-    action write_task_1_value(bit<32> switch_id)    
+
+    
+    action write_task_1_value(bit<32> Switch_ID)
     {
-        if(dp_meta.flow_global_write_or_not == 1 )
+        if(dp_meta.flow_global_write_or_not == 1 && hdr.dpint.task != 0 )
         {
-            hdr.dpint.value = switch_id;
+            hdr.dpint.value = dp_meta.flow_forward_number;
+            hdr.dpint.hop = 255 - (bit<16>)hdr.ipv4.ttl;
         }
     }
 
-    action write_task_2_value(bit<32> switch_id)
+    action write_task_2_value(bit<32> Switch_ID)
     {
-        if(dp_meta.flow_global_write_or_not == 1 )
+        if(dp_meta.flow_global_write_or_not == 1 && hdr.dpint.task != 0 )
         {
-            hdr.dpint.value = standard_metadata.enq_timestamp;
+            hdr.dpint.value = dp_meta.inter_arrival_time;
+            hdr.dpint.hop = 255 - (bit<16>)hdr.ipv4.ttl;
         }
     }
 
-    action write_task_3_value(bit<32> switch_id)
+    action write_task_3_value(bit<32> Switch_ID)
     {
-        if(dp_meta.flow_global_write_or_not == 1)
+        if(dp_meta.flow_global_write_or_not == 1 && hdr.dpint.task != 0 )
         {
-            hdr.dpint.value = (bit<32>)standard_metadata.enq_qdepth;     
+            hdr.dpint.value = dp_meta.flow_forward_number;
+            hdr.dpint.hop = 255 - (bit<16>)hdr.ipv4.ttl;
+        }
+    }
+
+    action write_task_4_value(bit<32> Switch_ID)
+    {
+        if(dp_meta.flow_global_write_or_not == 1 && hdr.dpint.task != 0)
+        {
+            hdr.dpint.value = Switch_ID;
+            hdr.dpint.hop = 255 - (bit<16>)hdr.ipv4.ttl;
         }
     }
 
@@ -171,20 +193,36 @@ control DpintControl(inout headers hdr, inout dpint_metadata_t dp_meta,inout sta
             write_task_1_value;
             write_task_2_value;
             write_task_3_value;
+            write_task_4_value;
         }
     }
-        apply
+    register <bit<48>> (65535) global_timestamp_reg;     //last global timestamp  //because every flow need to update a timestamp when each packet arrives
+    register <bit<32>> (65535) flow_packet_number;     //packet number of a flow
+
+    apply
+    {
+        //timestamp
+        if(hdr.dpint.isValid())
         {
-            tbl_do_telemetry_level_0.apply();
+            bit<48> last_global_timestamp;
+            global_timestamp_reg.read(last_global_timestamp,dp_meta.flow_ID);
+            dp_meta.inter_arrival_time = (bit<32>)(standard_metadata.ingress_global_timestamp - last_global_timestamp);
+            global_timestamp_reg.write(dp_meta.flow_ID,standard_metadata.ingress_global_timestamp);
+            //flow forward number
+            flow_packet_number.read(dp_meta.flow_forward_number,dp_meta.flow_ID);
+            dp_meta.flow_forward_number = dp_meta.flow_forward_number+1;
+            flow_packet_number.write(dp_meta.flow_ID,dp_meta.flow_forward_number);
         }
+        tbl_do_telemetry_level_0.apply();
+    }
     
 
 }
 
+
 control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout standard_metadata_t standard_metadata)
 {
     source_control() ctl_source_control;
-    DpintControl() ctl_DpintControl;
     action drop() {
         mark_to_drop(standard_metadata);
     }
@@ -217,23 +255,7 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         }
     }
 
-    action get_approximation(bit<48> approximation)
-    {
-        dp_meta.approximation = approximation;
-    }
 
-    table tbl_ttl_rules
-    {
-        key = {
-            hdr.dpint.hop: exact;
-        }
-        actions = 
-        {
-            get_approximation;
-            NoAction;
-        }
-        default_action = NoAction;
-    }
 
     apply
     {
@@ -243,7 +265,7 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         hash(dp_meta.decider_hash,HashAlgorithm.crc32,(bit<1>)0,{hdr.ipv4.srcAddr,hdr.ipv4.dstAddr,hdr.ipv4.identification},(bit<32>)DECIDER_HASH_UPBOUND);
         if(hdr.ipv4.isValid())     
         {
-            if(!hdr.dpint.isValid())
+            if(!hdr.dpint.isValid() && hdr.ipv4.ttl == 255)
             {
                 add_dpint_header();
                 ctl_source_control.apply(hdr,dp_meta);
@@ -251,10 +273,7 @@ control DpintIngress(inout headers hdr, inout dpint_metadata_t dp_meta, inout st
         }
 
         tbl_forward.apply();
-        tbl_ttl_rules.apply();     
-        if(dp_meta.global_hash < dp_meta.approximation)
-            dp_meta.flow_global_write_or_not = 1;
-        ctl_DpintControl.apply(hdr,dp_meta,standard_metadata);
+        
     }
 }
 
@@ -296,8 +315,30 @@ control MyDeparser(packet_out pkt, in headers hdr)
 
 control MyEgress(inout headers hdr, inout dpint_metadata_t dp_meta, inout standard_metadata_t standard_metadata)
 {
+    
+    action get_approximation(bit<48> approximation)
+    {
+        dp_meta.approximation = approximation;
+    }
+    table tbl_ttl_rules
+    {
+        key = {
+            hdr.dpint.hop: exact;
+        }
+        actions = 
+        {
+            get_approximation;
+            NoAction;
+        }
+        default_action = NoAction;
+    }
     apply{
-
+        
+        DpintControl() ctl_DpintControl;
+        tbl_ttl_rules.apply();     
+        if(dp_meta.global_hash < dp_meta.approximation)
+            dp_meta.flow_global_write_or_not = 1;
+        ctl_DpintControl.apply(hdr,dp_meta,standard_metadata);
     }
 }
 
