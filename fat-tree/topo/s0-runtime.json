@@ -1,0 +1,413 @@
+{
+    "table_entries": [
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:00:10:00:00:02", 
+                "port": 0
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.0.0.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:00:10:00:00:03", 
+                "port": 1
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.0.0.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.0.1.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.0.1.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.1.0.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.1.0.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.1.1.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.1.1.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.2.0.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.2.0.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.2.1.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.2.1.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.3.0.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.3.0.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:02:01:00", 
+                "port": 2
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.3.1.2", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.tbl_forward", 
+            "action_params": {
+                "dstAddr": "08:10:00:03:01:00", 
+                "port": 3
+            }, 
+            "match": {
+                "hdr.ipv4.dstAddr": [
+                    "10.3.1.3", 
+                    32
+                ]
+            }, 
+            "action_name": "DpintIngress.forward"
+        }, 
+        {
+            "table": "DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0", 
+            "action_params": {}, 
+            "match": {
+                "hdr.dpint.task": 1
+            }, 
+            "action_name": "DpintIngress.ctl_DpintControl.write_task_1_value"
+        }, 
+        {
+            "table": "DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0", 
+            "action_params": {}, 
+            "match": {
+                "hdr.dpint.task": 2
+            }, 
+            "action_name": "DpintIngress.ctl_DpintControl.write_task_2_value"
+        }, 
+        {
+            "table": "DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0", 
+            "action_params": {}, 
+            "match": {
+                "hdr.dpint.task": 3
+            }, 
+            "action_name": "DpintIngress.ctl_DpintControl.write_task_3_value"
+        }, 
+        {
+            "table": "DpintIngress.ctl_DpintControl.tbl_do_telemetry_level_0", 
+            "action_params": {
+                "Switch_ID": 0
+            }, 
+            "match": {
+                "hdr.dpint.task": 4
+            }, 
+            "action_name": "DpintIngress.ctl_DpintControl.write_task_4_value"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 100000
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 254
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 50000
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 253
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 33333
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 252
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 25000
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 251
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 20000
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 250
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 16666
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 249
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 14285
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 248
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 12500
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 247
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 11111
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 246
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "table": "DpintIngress.tbl_ttl_rules", 
+            "action_params": {
+                "approximation": 10000
+            }, 
+            "match": {
+                "hdr.ipv4.ttl": 245
+            }, 
+            "action_name": "DpintIngress.get_approximation"
+        }, 
+        {
+            "priority": 1, 
+            "table": "DpintIngress.ctl_source_control.tbl_determine_task", 
+            "action_params": {}, 
+            "match": {
+                "dp_meta.decider_hash": [
+                    0, 
+                    24
+                ]
+            }, 
+            "action_name": "DpintIngress.ctl_source_control.write_task_1"
+        }, 
+        {
+            "priority": 1, 
+            "table": "DpintIngress.ctl_source_control.tbl_determine_task", 
+            "action_params": {}, 
+            "match": {
+                "dp_meta.decider_hash": [
+                    25, 
+                    49
+                ]
+            }, 
+            "action_name": "DpintIngress.ctl_source_control.write_task_2"
+        }, 
+        {
+            "priority": 1, 
+            "table": "DpintIngress.ctl_source_control.tbl_determine_task", 
+            "action_params": {}, 
+            "match": {
+                "dp_meta.decider_hash": [
+                    50, 
+                    74
+                ]
+            }, 
+            "action_name": "DpintIngress.ctl_source_control.write_task_3"
+        }, 
+        {
+            "priority": 1, 
+            "table": "DpintIngress.ctl_source_control.tbl_determine_task", 
+            "action_params": {}, 
+            "match": {
+                "dp_meta.decider_hash": [
+                    75, 
+                    99
+                ]
+            }, 
+            "action_name": "DpintIngress.ctl_source_control.write_task_4"
+        }
+    ], 
+    "bmv2_json": "build/basic.json", 
+    "target": "bmv2", 
+    "p4info": "build/basic.p4.p4info.txt"
+}
